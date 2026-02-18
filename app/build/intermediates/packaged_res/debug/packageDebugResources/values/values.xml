@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#2196F3</color>
+    <string name="add_spot">Agregar Spot</string>
+    <string name="app_name">City Spots</string>
+    <string name="camera_title">Capturar Spot</string>
+    <string name="capture_photo">Capturar</string>
+    <string name="cd_add_spot_button">Agregar nuevo spot</string>
+    <string name="cd_capture_button">Botón de captura de foto</string>
+    <string name="cd_map">Mapa con spots guardados</string>
+    <string name="grant_permissions">Otorgar Permisos</string>
+    <string name="loading_location">Obteniendo ubicación…</string>
+    <string name="map_title">Mis City Spots</string>
+    <string name="open_settings">Abrir Configuración</string>
+    <string name="permission_camera_rationale">La cámara es necesaria para capturar fotos de los lugares que visites.</string>
+    <string name="permission_denied_message">Sin estos permisos, la app no puede funcionar correctamente. Por favor, otórgalos en Configuración.</string>
+    <string name="permission_location_rationale">La ubicación es necesaria para guardar las coordenadas de tus spots.</string>
+    <string name="saving_spot">Guardando spot…</string>
+    <style name="Theme.CitySpots" parent="android:Theme.Material.Light.NoActionBar">
+        
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

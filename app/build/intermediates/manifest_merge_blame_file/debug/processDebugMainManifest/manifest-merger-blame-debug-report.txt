@@ -1,0 +1,346 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3=============================================================================
+4CITY SPOTS - MÓDULO 4: HARDWARE & MAPS
+5AndroidManifest.xml - Configuración de la aplicación
+6=============================================================================
+7Este archivo define:
+81. Permisos requeridos por la aplicación
+92. Características de hardware utilizadas
+103. Configuración de la API Key de Google Maps
+114. Declaración de componentes (Activities)
+12=============================================================================
+13-->
+14<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+15    package="com.curso.android.module4.cityspots"
+16    android:versionCode="1"
+17    android:versionName="1.0" >
+18
+19    <uses-sdk
+20        android:minSdkVersion="26"
+21        android:targetSdkVersion="35" />
+22
+23    <!--
+24    ==========================================================================
+25    PERMISOS DE LA APLICACIÓN
+26    ==========================================================================
+27    Los permisos en Android se dividen en dos categorías:
+28    - Normales: Se otorgan automáticamente al instalar (ej: INTERNET)
+29    - Peligrosos: Requieren aprobación explícita del usuario en runtime
+30
+31    Los permisos de CÁMARA y UBICACIÓN son "peligrosos" y requieren:
+32    1. Declararlos aquí en el Manifest
+33    2. Solicitarlos en runtime usando la API de permisos
+34    ==========================================================================
+35    -->
+36
+37
+38    <!-- PERMISO DE CÁMARA -->
+39    <!-- Necesario para acceder al hardware de la cámara -->
+40    <uses-permission android:name="android.permission.CAMERA" />
+40-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:32:5-65
+40-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:32:22-62
+41
+42    <!-- PERMISOS DE UBICACIÓN -->
+43    <!--
+44    ACCESS_FINE_LOCATION: Ubicación precisa (GPS) - ~10 metros de precisión
+45    ACCESS_COARSE_LOCATION: Ubicación aproximada (WiFi/Cell) - ~100 metros
+46    NOTA: Para solicitar FINE_LOCATION, también debes declarar COARSE_LOCATION
+47    -->
+48    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+48-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:40:5-79
+48-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:40:22-76
+49    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+49-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:41:5-81
+49-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:41:22-78
+50
+51    <!--
+52    ==========================================================================
+53    CARACTERÍSTICAS DE HARDWARE (FEATURES)
+54    ==========================================================================
+55    Declarar las características de hardware ayuda a Google Play a filtrar
+56    dispositivos incompatibles. El atributo required="false" indica que la
+57    app puede funcionar sin esa característica (graceful degradation).
+58    ==========================================================================
+59    -->
+60
+61
+62    <!-- Característica de cámara - Requerida para funcionalidad principal -->
+63    <uses-feature
+63-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:54:5-56:35
+64        android:name="android.hardware.camera"
+64-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:55:9-47
+65        android:required="true" />
+65-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:56:9-32
+66
+67    <!-- Autofocus de cámara - Opcional pero recomendado -->
+68    <uses-feature
+68-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:59:5-61:36
+69        android:name="android.hardware.camera.autofocus"
+69-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:60:9-57
+70        android:required="false" />
+70-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:61:9-33
+71
+72    <!-- GPS - Requerido para geolocalización precisa -->
+73    <uses-feature
+73-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:64:5-66:35
+74        android:name="android.hardware.location.gps"
+74-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:65:9-53
+75        android:required="true" />
+75-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:66:9-32
+76
+77    <!-- Include required permissions for Google Maps API to run. -->
+78    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+78-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:23:5-79
+78-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:23:22-76
+79    <uses-permission android:name="android.permission.INTERNET" />
+79-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:24:5-67
+79-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:24:22-64
+80
+81    <uses-feature
+81-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:26:5-28:35
+82        android:glEsVersion="0x00020000"
+82-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:27:9-41
+83        android:required="true" />
+83-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:28:9-32
+84
+85    <queries>
+85-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:30:5-34:15
+86
+87        <!-- Needs to be explicitly declared on Android R+ -->
+88        <package android:name="com.google.android.apps.maps" />
+88-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:33:9-64
+88-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:33:18-61
+89    </queries>
+90
+91    <permission
+91-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+92        android:name="com.curso.android.module4.cityspots.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+92-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+93        android:protectionLevel="signature" />
+93-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+94
+95    <uses-permission android:name="com.curso.android.module4.cityspots.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+95-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+95-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+96    <!--
+97    ==========================================================================
+98    CONFIGURACIÓN DE LA APLICACIÓN
+99    ==========================================================================
+100    -->
+101    <application
+101-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:73:5-129:19
+102        android:name="com.curso.android.module4.cityspots.CitySpotsApplication"
+102-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:74:9-45
+103        android:allowBackup="true"
+103-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:75:9-35
+104        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+104-->[androidx.core:core:1.15.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef5a1fdfaf804b7339d989b5cb35a1ba/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+105        android:debuggable="true"
+106        android:extractNativeLibs="false"
+107        android:icon="@mipmap/ic_launcher"
+107-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:76:9-43
+108        android:label="@string/app_name"
+108-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:77:9-41
+109        android:roundIcon="@mipmap/ic_launcher_round"
+109-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:78:9-54
+110        android:supportsRtl="true"
+110-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:79:9-35
+111        android:testOnly="true"
+112        android:theme="@style/Theme.CitySpots" >
+112-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:80:9-47
+113
+114        <!--
+115        ======================================================================
+116        GOOGLE MAPS API KEY
+117        ======================================================================
+118        IMPORTANTE: Debes reemplazar "YOUR_API_KEY_HERE" con tu clave real
+119        de la Google Cloud Console.
+120
+121        Pasos para obtener la API Key:
+122        1. Ve a https://console.cloud.google.com/
+123        2. Crea un proyecto nuevo o selecciona uno existente
+124        3. Habilita "Maps SDK for Android" en APIs & Services
+125        4. Ve a Credentials y crea una API Key
+126        5. (Recomendado) Restringe la API Key a tu app:
+127           - Restricción de aplicación: Apps de Android
+128           - Nombre del paquete: com.curso.android.module4.cityspots
+129           - Huella digital SHA-1: (obtener con keytool)
+130
+131        SEGURIDAD: En producción, considera usar:
+132        - Secrets Gradle Plugin para no exponer la key en el código
+133        - Restricciones de API Key en Cloud Console
+134        ======================================================================
+135        -->
+136        <meta-data
+137            android:name="com.google.android.geo.API_KEY"
+137-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:105:13-58
+138            android:value="AIzaSyCDWHWaaiiUxYltxlFHI8ECLSBAFmRzkpI" />
+138-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:106:13-44
+139
+140        <!--
+141        ======================================================================
+142        ACTIVITY PRINCIPAL
+143        ======================================================================
+144        exported="true" es requerido para Activities con intent-filter
+145        en Android 12+ (API 31+)
+146        ======================================================================
+147        -->
+148        <activity
+148-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:116:9-127:20
+149            android:name="com.curso.android.module4.cityspots.MainActivity"
+149-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:117:13-41
+150            android:exported="true"
+150-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:118:13-36
+151            android:label="@string/app_name"
+151-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:119:13-45
+152            android:theme="@style/Theme.CitySpots" >
+152-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:120:13-51
+153            <intent-filter>
+153-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:121:13-126:29
+154
+155                <!-- Acción principal - punto de entrada de la app -->
+156                <action android:name="android.intent.action.MAIN" />
+156-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:123:17-69
+156-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:123:25-66
+157                <!-- Categoría launcher - aparece en el menú de apps -->
+158                <category android:name="android.intent.category.LAUNCHER" />
+158-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:125:17-77
+158-->/Users/rodrixgalvez/Documents/aplicaciones-web-avanzadas/mobile/module4-cityspots/app/src/main/AndroidManifest.xml:125:27-74
+159            </intent-filter>
+160        </activity>
+161
+162        <!--
+163        Service for holding metadata. Cannot be instantiated.
+164        Metadata will be merged from other manifests.
+165        -->
+166        <service
+166-->[androidx.camera:camera-core:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/b9ab959169b89c8e0e042d66db3c43ed/transformed/camera-core-1.4.1/AndroidManifest.xml:29:9-33:78
+167            android:name="androidx.camera.core.impl.MetadataHolderService"
+167-->[androidx.camera:camera-core:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/b9ab959169b89c8e0e042d66db3c43ed/transformed/camera-core-1.4.1/AndroidManifest.xml:30:13-75
+168            android:enabled="false"
+168-->[androidx.camera:camera-core:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/b9ab959169b89c8e0e042d66db3c43ed/transformed/camera-core-1.4.1/AndroidManifest.xml:31:13-36
+169            android:exported="false" >
+169-->[androidx.camera:camera-core:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/b9ab959169b89c8e0e042d66db3c43ed/transformed/camera-core-1.4.1/AndroidManifest.xml:32:13-37
+170            <meta-data
+170-->[androidx.camera:camera-camera2:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7b4d5390315ccd16b453ef624765cb2b/transformed/camera-camera2-1.4.1/AndroidManifest.xml:30:13-32:89
+171                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+171-->[androidx.camera:camera-camera2:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7b4d5390315ccd16b453ef624765cb2b/transformed/camera-camera2-1.4.1/AndroidManifest.xml:31:17-103
+172                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+172-->[androidx.camera:camera-camera2:1.4.1] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7b4d5390315ccd16b453ef624765cb2b/transformed/camera-camera2-1.4.1/AndroidManifest.xml:32:17-86
+173        </service> <!-- Needs to be explicitly declared on P+ -->
+174        <uses-library
+174-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:39:9-41:40
+175            android:name="org.apache.http.legacy"
+175-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:40:13-50
+176            android:required="false" />
+176-->[com.google.android.gms:play-services-maps:19.0.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/db2c39fb911864494cde48e2d99689b6/transformed/play-services-maps-19.0.0/AndroidManifest.xml:41:13-37
+177
+178        <activity
+178-->[com.google.android.gms:play-services-base:18.5.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/e338dcccd4e37ab72653522b04a3ed69/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+179            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+179-->[com.google.android.gms:play-services-base:18.5.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/e338dcccd4e37ab72653522b04a3ed69/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+180            android:exported="false"
+180-->[com.google.android.gms:play-services-base:18.5.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/e338dcccd4e37ab72653522b04a3ed69/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+181            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+181-->[com.google.android.gms:play-services-base:18.5.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/e338dcccd4e37ab72653522b04a3ed69/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+182
+183        <meta-data
+183-->[com.google.android.gms:play-services-basement:18.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/aa47b14f8961ca2ef1699cc46b1f39b6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+184            android:name="com.google.android.gms.version"
+184-->[com.google.android.gms:play-services-basement:18.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/aa47b14f8961ca2ef1699cc46b1f39b6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+185            android:value="@integer/google_play_services_version" />
+185-->[com.google.android.gms:play-services-basement:18.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/aa47b14f8961ca2ef1699cc46b1f39b6/transformed/play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+186
+187        <activity
+187-->[androidx.compose.ui:ui-tooling-android:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef70d3d3e8f80e46118d3160078c1f70/transformed/ui-tooling/AndroidManifest.xml:23:9-25:39
+188            android:name="androidx.compose.ui.tooling.PreviewActivity"
+188-->[androidx.compose.ui:ui-tooling-android:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef70d3d3e8f80e46118d3160078c1f70/transformed/ui-tooling/AndroidManifest.xml:24:13-71
+189            android:exported="true" />
+189-->[androidx.compose.ui:ui-tooling-android:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/ef70d3d3e8f80e46118d3160078c1f70/transformed/ui-tooling/AndroidManifest.xml:25:13-36
+190        <activity
+190-->[androidx.compose.ui:ui-test-manifest:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/77f7e6852087759124b6e012e3b58627/transformed/ui-test-manifest-1.9.0/AndroidManifest.xml:23:9-26:79
+191            android:name="androidx.activity.ComponentActivity"
+191-->[androidx.compose.ui:ui-test-manifest:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/77f7e6852087759124b6e012e3b58627/transformed/ui-test-manifest-1.9.0/AndroidManifest.xml:24:13-63
+192            android:exported="true"
+192-->[androidx.compose.ui:ui-test-manifest:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/77f7e6852087759124b6e012e3b58627/transformed/ui-test-manifest-1.9.0/AndroidManifest.xml:25:13-36
+193            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+193-->[androidx.compose.ui:ui-test-manifest:1.9.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/77f7e6852087759124b6e012e3b58627/transformed/ui-test-manifest-1.9.0/AndroidManifest.xml:26:13-76
+194
+195        <provider
+195-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+196            android:name="androidx.startup.InitializationProvider"
+196-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+197            android:authorities="com.curso.android.module4.cityspots.androidx-startup"
+197-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+198            android:exported="false" >
+198-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+199            <meta-data
+199-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+200                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+200-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+201                android:value="androidx.startup" />
+201-->[androidx.emoji2:emoji2:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/af3ada76da2a521fc3a397fb1cb4d4d3/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+202            <meta-data
+202-->[androidx.lifecycle:lifecycle-process:2.9.3] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/029a347e1d15f6e141f379b9c4f905bf/transformed/lifecycle-process-2.9.3/AndroidManifest.xml:29:13-31:52
+203                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+203-->[androidx.lifecycle:lifecycle-process:2.9.3] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/029a347e1d15f6e141f379b9c4f905bf/transformed/lifecycle-process-2.9.3/AndroidManifest.xml:30:17-78
+204                android:value="androidx.startup" />
+204-->[androidx.lifecycle:lifecycle-process:2.9.3] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/029a347e1d15f6e141f379b9c4f905bf/transformed/lifecycle-process-2.9.3/AndroidManifest.xml:31:17-49
+205            <meta-data
+205-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+206                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+206-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+207                android:value="androidx.startup" />
+207-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+208        </provider>
+209
+210        <service
+210-->[androidx.room:room-runtime-android:2.8.4] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7c78278efcf2892caddad8559f9e80d3/transformed/room-runtime/AndroidManifest.xml:24:9-28:63
+211            android:name="androidx.room.MultiInstanceInvalidationService"
+211-->[androidx.room:room-runtime-android:2.8.4] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7c78278efcf2892caddad8559f9e80d3/transformed/room-runtime/AndroidManifest.xml:25:13-74
+212            android:directBootAware="true"
+212-->[androidx.room:room-runtime-android:2.8.4] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7c78278efcf2892caddad8559f9e80d3/transformed/room-runtime/AndroidManifest.xml:26:13-43
+213            android:exported="false" />
+213-->[androidx.room:room-runtime-android:2.8.4] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/7c78278efcf2892caddad8559f9e80d3/transformed/room-runtime/AndroidManifest.xml:27:13-37
+214
+215        <receiver
+215-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+216            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+216-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+217            android:directBootAware="false"
+217-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+218            android:enabled="true"
+218-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+219            android:exported="true"
+219-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+220            android:permission="android.permission.DUMP" >
+220-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+221            <intent-filter>
+221-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+222                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+222-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+222-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+223            </intent-filter>
+224            <intent-filter>
+224-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+225                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+225-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+225-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+226            </intent-filter>
+227            <intent-filter>
+227-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+228                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+228-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+228-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+229            </intent-filter>
+230            <intent-filter>
+230-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+231                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+231-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+231-->[androidx.profileinstaller:profileinstaller:1.4.0] /Users/rodrixgalvez/.gradle/caches/9.1.0/transforms/0d95bfaf63f54fa22332553d99ab8838/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+232            </intent-filter>
+233        </receiver>
+234    </application>
+235
+236</manifest>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.curso.android.module4.cityspots.app-debug-62:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.curso.android.module4.cityspots.app-main-64:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.curso.android.module4.cityspots.app-debug-62:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.curso.android.module4.cityspots.app-main-64:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.curso.android.module4.cityspots.app-debug-62:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.curso.android.module4.cityspots.app-main-64:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    }
+]

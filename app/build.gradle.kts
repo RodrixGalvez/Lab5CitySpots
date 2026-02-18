@@ -9,6 +9,8 @@
 // - Dependencias de la aplicación
 // =============================================================================
 
+import java.util.Properties
+
 plugins {
     // Aplica el plugin de Android Application
     alias(libs.plugins.android.application)
@@ -25,7 +27,7 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-import java.util.Properties
+
 
 // Leer API key desde local.properties
 val localProperties = Properties()

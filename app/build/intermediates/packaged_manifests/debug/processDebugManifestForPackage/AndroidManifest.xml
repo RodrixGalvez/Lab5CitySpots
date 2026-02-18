@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+=============================================================================
+CITY SPOTS - MÓDULO 4: HARDWARE & MAPS
+AndroidManifest.xml - Configuración de la aplicación
+=============================================================================
+Este archivo define:
+1. Permisos requeridos por la aplicación
+2. Características de hardware utilizadas
+3. Configuración de la API Key de Google Maps
+4. Declaración de componentes (Activities)
+=============================================================================
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.curso.android.module4.cityspots"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="35" />
+
+    <!--
+    ==========================================================================
+    PERMISOS DE LA APLICACIÓN
+    ==========================================================================
+    Los permisos en Android se dividen en dos categorías:
+    - Normales: Se otorgan automáticamente al instalar (ej: INTERNET)
+    - Peligrosos: Requieren aprobación explícita del usuario en runtime
+
+    Los permisos de CÁMARA y UBICACIÓN son "peligrosos" y requieren:
+    1. Declararlos aquí en el Manifest
+    2. Solicitarlos en runtime usando la API de permisos
+    ==========================================================================
+    -->
+
+
+    <!-- PERMISO DE CÁMARA -->
+    <!-- Necesario para acceder al hardware de la cámara -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- PERMISOS DE UBICACIÓN -->
+    <!--
+    ACCESS_FINE_LOCATION: Ubicación precisa (GPS) - ~10 metros de precisión
+    ACCESS_COARSE_LOCATION: Ubicación aproximada (WiFi/Cell) - ~100 metros
+    NOTA: Para solicitar FINE_LOCATION, también debes declarar COARSE_LOCATION
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!--
+    ==========================================================================
+    CARACTERÍSTICAS DE HARDWARE (FEATURES)
+    ==========================================================================
+    Declarar las características de hardware ayuda a Google Play a filtrar
+    dispositivos incompatibles. El atributo required="false" indica que la
+    app puede funcionar sin esa característica (graceful degradation).
+    ==========================================================================
+    -->
+
+
+    <!-- Característica de cámara - Requerida para funcionalidad principal -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <!-- Autofocus de cámara - Opcional pero recomendado -->
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
+    <!-- GPS - Requerido para geolocalización precisa -->
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
+
+    <!-- Include required permissions for Google Maps API to run. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <queries>
+
+        <!-- Needs to be explicitly declared on Android R+ -->
+        <package android:name="com.google.android.apps.maps" />
+    </queries>
+
+    <permission
+        android:name="com.curso.android.module4.cityspots.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.curso.android.module4.cityspots.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <!--
+    ==========================================================================
+    CONFIGURACIÓN DE LA APLICACIÓN
+    ==========================================================================
+    -->
+    <application
+        android:name="com.curso.android.module4.cityspots.CitySpotsApplication"
+        android:allowBackup="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:debuggable="true"
+        android:extractNativeLibs="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:testOnly="true"
+        android:theme="@style/Theme.CitySpots" >
+
+        <!--
+        ======================================================================
+        GOOGLE MAPS API KEY
+        ======================================================================
+        IMPORTANTE: Debes reemplazar "YOUR_API_KEY_HERE" con tu clave real
+        de la Google Cloud Console.
+
+        Pasos para obtener la API Key:
+        1. Ve a https://console.cloud.google.com/
+        2. Crea un proyecto nuevo o selecciona uno existente
+        3. Habilita "Maps SDK for Android" en APIs & Services
+        4. Ve a Credentials y crea una API Key
+        5. (Recomendado) Restringe la API Key a tu app:
+           - Restricción de aplicación: Apps de Android
+           - Nombre del paquete: com.curso.android.module4.cityspots
+           - Huella digital SHA-1: (obtener con keytool)
+
+        SEGURIDAD: En producción, considera usar:
+        - Secrets Gradle Plugin para no exponer la key en el código
+        - Restricciones de API Key en Cloud Console
+        ======================================================================
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCDWHWaaiiUxYltxlFHI8ECLSBAFmRzkpI" />
+
+        <!--
+        ======================================================================
+        ACTIVITY PRINCIPAL
+        ======================================================================
+        exported="true" es requerido para Activities con intent-filter
+        en Android 12+ (API 31+)
+        ======================================================================
+        -->
+        <activity
+            android:name="com.curso.android.module4.cityspots.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CitySpots" >
+            <intent-filter>
+
+                <!-- Acción principal - punto de entrada de la app -->
+                <action android:name="android.intent.action.MAIN" />
+                <!-- Categoría launcher - aparece en el menú de apps -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        Service for holding metadata. Cannot be instantiated.
+        Metadata will be merged from other manifests.
+        -->
+        <service
+            android:name="androidx.camera.core.impl.MetadataHolderService"
+            android:enabled="false"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+        </service> <!-- Needs to be explicitly declared on P+ -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="androidx.compose.ui.tooling.PreviewActivity"
+            android:exported="true" />
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.curso.android.module4.cityspots.androidx-startup"
+            android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <service
+            android:name="androidx.room.MultiInstanceInvalidationService"
+            android:directBootAware="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+            android:directBootAware="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.DUMP" >
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
