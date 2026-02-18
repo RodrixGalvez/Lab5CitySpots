@@ -3,6 +3,7 @@ package com.curso.android.module4.cityspots.repository
 import android.location.Location
 import android.net.Uri
 import androidx.camera.core.ImageCapture
+import androidx.core.net.toUri
 import com.curso.android.module4.cityspots.data.dao.SpotDao
 import com.curso.android.module4.cityspots.data.entity.SpotEntity
 import com.curso.android.module4.cityspots.utils.CameraUtils
@@ -225,6 +226,12 @@ class SpotRepository(
 
         // Retornar el spot con el ID generado
         return CreateSpotResult.Success(spot.copy(id = id))
+    }
+
+    suspend fun deleteSpot(spot: SpotEntity): Unit {
+        val image = spot.imageUri
+        cameraUtils.deleteImage(image.toUri())
+        spotDao.deleteSpot(spot.id)
     }
 }
 

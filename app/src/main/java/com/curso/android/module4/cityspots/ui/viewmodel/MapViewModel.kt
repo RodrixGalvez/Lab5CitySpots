@@ -196,6 +196,8 @@ class MapViewModel(
         }
     }
 
+
+    
     /**
      * Limpia el resultado de captura después de procesarlo
      */

@@ -1,6 +1,7 @@
 package com.curso.android.module4.cityspots.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -85,7 +86,8 @@ interface SpotDao {
     @Query("SELECT COUNT(*) FROM spots")
     suspend fun getSpotCount(): Int
 
-
+    @Query("Delete FROM spots where id = :id")
+    suspend fun deleteSpot(id: Long): Unit
 
 
 }
