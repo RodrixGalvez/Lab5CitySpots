@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -20,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -229,6 +231,8 @@ fun MapScreen(
          * - Las imágenes se cargan correctamente
          */
         var selectedSpot by remember { mutableStateOf<SpotEntity?>(null) }
+        var showDeleteDialog by remember { mutableStateOf(false) }
+        var spotToDelete by remember { mutableStateOf<SpotEntity?>(null) }
 
         Box(
             modifier = Modifier
@@ -250,7 +254,11 @@ fun MapScreen(
                     spot = spot,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(16.dp)
+                        .padding(16.dp),
+                    onDelete = {
+                        spotToDelete = spot
+                        showDeleteDialog = true
+                    }
                 )
             }
 
@@ -258,6 +266,44 @@ fun MapScreen(
             if (isLoading) {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
+                )
+            }
+
+            if(showDeleteDialog && spotToDelete != null){
+                AlertDialog(
+                    onDismissRequest = {
+                        showDeleteDialog = false
+                        spotToDelete = null
+                    },
+                    title = {
+                        Text("Eliminar Spot")
+                    },
+                    text = {
+                        Text("Estás seguro de eliminar este spot?")
+                    },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                viewModel.deleteSpot(spotToDelete!!)
+                                showDeleteDialog = false
+                                selectedSpot = null
+                                spotToDelete = null
+                            }
+                        ) {
+                            Text("Eliminar")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(
+                            onClick = {
+                                showDeleteDialog = false
+                                spotToDelete = null
+                            }
+
+                        ) {
+                            Text("Cancelar")
+                        }
+                    }
                 )
             }
         }
@@ -396,7 +442,8 @@ private fun SpotMap(
 @Composable
 private fun SpotInfoCard(
     spot: SpotEntity,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDelete: () -> Unit
 ) {
     Card(
         modifier = modifier,
@@ -458,6 +505,13 @@ private fun SpotInfoCard(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
+
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            TextButton(onClick = onDelete) {
+                Text("Eliminar")
+            }
         }
     }
 }

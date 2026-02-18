@@ -142,6 +142,20 @@ public class SpotDao_Impl(
     }
   }
 
+  public override suspend fun deleteSpot(id: Long) {
+    val _sql: String = "Delete FROM spots where id = ?"
+    return performSuspending(__db, false, true) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        var _argIndex: Int = 1
+        _stmt.bindLong(_argIndex, id)
+        _stmt.step()
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
   public companion object {
     public fun getRequiredConverters(): List<KClass<*>> = emptyList()
   }
