@@ -197,7 +197,20 @@ class MapViewModel(
     }
 
 
-    
+    fun deleteSpot(spot: SpotEntity): Unit {
+        viewModelScope.launch{
+            try{
+                _isLoading.value = true
+                repository.deleteSpot(spot)
+            }
+            catch (e: Exception){
+                _errorMessage.value = "No se pudo eliminar el spot. Intenta nuevamente."
+            }
+            finally {
+                _isLoading.value = false
+            }
+        }
+    }
     /**
      * Limpia el resultado de captura después de procesarlo
      */
